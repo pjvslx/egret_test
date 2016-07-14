@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="fight.ButtonSkin" states="up,down,disabled" width="200" height="100"
+        xmlns:e="http://ns.egret.com/eui" currentState="up">
+	<e:Label text="标签" x="69" y="38" textColor="0xff0000" alpha.down="0.5"/>
+	<e:Image source="resource/assets/egret_icon.png" x="46" y="-12" alpha.down="0.5"/>
+</e:Skin>

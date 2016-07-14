@@ -27,7 +27,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
-class Main extends egret.DisplayObjectContainer {
+class Main extends eui.UILayer{
 
     /**
      * 加载进度界面
@@ -35,13 +35,11 @@ class Main extends egret.DisplayObjectContainer {
      */
     private loadingView:LoadingUI;
     private m_connected:Boolean = false;
-
-    public constructor() {
-        super();
-        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-    }
-
-    private onAddToStage(event:egret.Event) {
+    
+    protected createChildren():void
+    {
+        super.createChildren();
+        
         //设置加载进度界面
         //Config to load process interface
         this.loadingView = new LoadingUI();
@@ -49,8 +47,8 @@ class Main extends egret.DisplayObjectContainer {
 
         //初始化Resource资源加载库
         //initiate Resource loading library
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
+        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
+        RES.loadConfig("resource/default.res.json","resource/");
     }
 
     /**
@@ -182,6 +180,32 @@ class Main extends egret.DisplayObjectContainer {
         sock.addEventListener(egret.Event.CLOSE,onSocketClose,this);
         sock.connect("192.168.199.109",9999);      
 //        sock.connect("echo.websocket.org",80);
+        
+        var lab:eui.Label = new eui.Label();
+        lab.text = "Hello eui";
+        lab.x = 100;
+        lab.y = 400;
+        this.addChild(lab);
+        
+        var btn: eui.Button = new eui.Button();
+        btn.x = 100;
+        btn.y = 300;
+        //btn.skinName = "ButtonSkin.exml";
+        btn.skinName = "resource/eui_skin/ButtonSkin.exml";
+        console.log("width = " + btn.width + " height = " + btn.height);
+        this.addChild(btn);
+        
+//        EXML.load("resource/eui_skin/ButtonSkin.exml",this.onEXMLLoad,this);
+    }
+    
+    private onEXMLLoad(clazz:any, url:string):void
+    {
+        var btn: eui.Button = new eui.Button();
+        btn.x = 100;
+        btn.y = 300;
+        btn.skinName = clazz;
+        console.log("width = " + btn.width + " height = " + btn.height);
+        this.addChild(btn);
     }
     
     private touchHandle(evt:egret.TouchEvent):void
